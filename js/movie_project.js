@@ -1,8 +1,10 @@
 
 
 const htmlLoad = document.getElementById('movieList');
-const apiURL = 'https://natural-nine-macaroni.glitch.me/movies'
+const apiURL = 'https://saber-tiny-open.glitch.me/movies'
 // Api request for Json movie objects/////////////
+
+
 const getMovies = () => {
     return fetch(apiURL)
         .then(response => response.json())
@@ -27,7 +29,7 @@ const getMovies = () => {
 
 
 console.log(getMovies())
-////////////////////////////////////////
+
 //Add Movie Function***********
 
 const addMovie = () => {
@@ -47,7 +49,21 @@ const addMovie = () => {
     const omdbDATA = () => fetch(url)
         .then(response => response.json())
 
-                .then(data => console.log(data))
+                .then((data) => {
+                    let search = data.Search[0].Poster
+                    let title = data.Search[0].Title
+                    let year = data.Search[0].Year
+                    for (let i = 0; i < 1; i++){
+                        let showSearch = document.createElement("div")
+                        showSearch.innerHTML = `<img src="${search}"><h2>${title} - ${year}</h2></img>`
+                        htmlLoad.appendChild(showSearch)
+                    }
+
+                        console.log(data.Search)
+                }
+
+
+                )
                 .catch(error => console.log(error))
 
             console.log(omdbDATA())
