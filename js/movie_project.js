@@ -50,10 +50,11 @@ const addMovie = () => {
         .then(response => response.json())
 
                 .then((data) => {
-                    let search = data.Search[0].Poster
-                    let title = data.Search[0].Title
-                    let year = data.Search[0].Year
-                    for (let i = 0; i < 1; i++){
+
+                    for (let i = 0; i < 10; i++){
+                        let search = data.Search[i].Poster
+                        let title = data.Search[i].Title
+                        let year = data.Search[i].Year
                         let showSearch = document.createElement("div")
                         showSearch.innerHTML = `<img src="${search}"><h2>${title} - ${year}</h2></img>`
                         htmlLoad.appendChild(showSearch)
