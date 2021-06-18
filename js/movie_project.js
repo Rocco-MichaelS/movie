@@ -45,13 +45,13 @@ const addMovie = () => {
     // createInput.addEventListener("click", Delete)
 
     //OMDB Movie Data********************
-    const url = 'http://www.omdbapi.com/?apikey='+'9065481d'+'&s='+userInput+''
+    const url = 'http://www.omdbapi.com/?apikey='+omdbAPIKEY+'&s='+userInput+''
     const omdbDATA = () => fetch(url)
         .then(response => response.json())
 
                 .then((data) => {
 
-                    for (let i = 0; i < 10; i++){
+                    for (let i = 0; i < 1; i++){
                         let search = data.Search[i].Poster
                         let title = data.Search[i].Title
                         let year = data.Search[i].Year
