@@ -45,8 +45,8 @@ const addMovie = () => {
     // createInput.addEventListener("click", Delete)
 
     //OMDB Movie Data********************
-    const omdbAPIKEY = '9065481d'
-    const url = 'http://www.omdbapi.com/?apikey='+ omdbAPIKEY +'&s='+userInput+''
+
+    const url = 'https://www.omdbapi.com/?apikey='+'9065481d'+'&s='+userInput+''
     const omdbDATA = () => fetch(url)
         .then(response => response.json())
 
