@@ -1,5 +1,3 @@
-
-
 const htmlLoad = document.getElementById('movieList');
 const apiURL = 'https://saber-tiny-open.glitch.me/movies'
 // Api request for Json movie objects/////////////
@@ -12,10 +10,16 @@ const getMovies = () => {
             movies.forEach(({title, rating, id}) => {
                 let divCreate = document.createElement("div")
                 console.log(` ${title} - rating: ${rating}`)
-                divCreate.innerHTML = `<p class="col-lg-6 col-sm-12 movieClass"> ${title} <br> rating: ${rating} <br>
+                divCreate.innerHTML = `
+                                         
+                                        <div class="movieList">
+                                         <div class="col-2 ">
+                                           <p class="col-lg-3 col-sm-12 movieClass"> ${title} <br> rating: ${rating} <br>
                                          <button onclick="Delete(this)" 
-                                         data-rmv=${id} id='remove' class="rmvBtn px-1">Remove</button><button onclick="updateData(this)">Update</button></p>`
-
+                                         data-rmv=${id} id='remove' class="rmvBtn px-1">Remove</button><button onclick="updateData(this)">Update</button></p>
+                                    </div>
+                                         </div>
+                                         `
                 htmlLoad.appendChild(divCreate)
                 divCreate.addEventListener("click", divCreate.remove)
                 divCreate.addEventListener("click", Delete)
@@ -45,29 +49,28 @@ const addMovie = () => {
     // createInput.addEventListener("click", Delete)
 
     //OMDB Movie Data********************
-    const url = 'http://www.omdbapi.com/?apikey='+'9065481d'+'&s='+userInput+''
+
+    const url = 'https://www.omdbapi.com/?apikey=' + '9065481d' + '&s=' + userInput + ''
     const omdbDATA = () => fetch(url)
         .then(response => response.json())
 
-                .then((data) => {
+        .then((data) => {
 
-                    for (let i = 0; i < 10; i++){
-                        let search = data.Search[i].Poster
-                        let title = data.Search[i].Title
-                        let year = data.Search[i].Year
-                        let showSearch = document.createElement("div")
-                        showSearch.innerHTML = `<img src="${search}"><h2>${title} - ${year}</h2></img>`
-                        htmlLoad.appendChild(showSearch)
-                    }
-
-                        console.log(data.Search)
+                for (let i = 0; i < 1; i++) {
+                    let search = data.Search[i].Poster
+                    let title = data.Search[i].Title
+                    let year = data.Search[i].Year
+                    let showSearch = document.createElement("div")
+                    showSearch.innerHTML = `<img src="${search}"><h2>${title} - ${year}</h2></img>`
+                    htmlLoad.appendChild(showSearch)
                 }
 
+                console.log(data.Search)
+            }
+        )
+        .catch(error => console.log(error))
 
-                )
-                .catch(error => console.log(error))
-
-            console.log(omdbDATA())
+    console.log(omdbDATA())
 
 //*****ADD to Glitch JSON Objects***********
 
@@ -84,20 +87,20 @@ const addMovie = () => {
         body: JSON.stringify(addTitle),
     };
     fetch(apiURL, options)
-        .then( response => console.log(response) ) /* review was created successfully */
-        .catch( error => console.error(error) );
+        .then(response => console.log(response)) /* review was created successfully */
+        .catch(error => console.error(error));
 
 
 }
 //delete from Api******************
 const Delete = (id) => {
- let movieId = $(id).data('rmv')
+    let movieId = $(id).data('rmv')
     fetch(`${apiURL}/${movieId}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
         }
-        })
+    })
         .then(response => response)
         .then(() => {
             alert(`deleted movie!!`)
@@ -116,6 +119,7 @@ const updateData = (movie) => {
     })
         .then(res => res.json())
         .then(data => {
-            console.log('success')})
+            console.log('success')
+        })
         .catch(console.log('error'));
 }
