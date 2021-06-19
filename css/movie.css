@@ -33,16 +33,23 @@ button {
     /*max-width: 20em;*/
 }
 .mainContainer{
-    /*background-image: url("../images/tron.jpeg");*/
-    background-size: 20em;
+    background-image: url("../images/tron.jpeg");
+    /*background-size: 20em;*/
     background-color: blanchedalmond;
     background-position-x: 20em;
-    width: 30em;
+    width: 60em;
     height: 55em;
     border: 2px solid darkgray;
     border-radius: 5px;
     overflow: scroll;
     margin-left: -1em;
+}
+
+.movieContainer {
+    width: 50em;
+    height: 55em;
+    background-color: blanchedalmond;
+
 }
 .rmvBtn {
     background-color: #A61D0E;
@@ -82,4 +89,11 @@ button {
 .Add {
     font-family: 'Bangers';
     background-color: darkseagreen;
+}
+
+.movieList{
+ display: flex;
+   flex-direction: row;
+    width: 20px;
+
 }
