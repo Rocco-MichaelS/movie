@@ -32,18 +32,18 @@ button {
 .form-control {
     /*max-width: 20em;*/
 }
-.mainContainer{
-    background-image: url("../images/tron.jpeg");
-    /*background-size: 20em;*/
-    background-color: blanchedalmond;
-    background-position-x: 20em;
-    width: 60em;
-    height: 55em;
-    border: 2px solid darkgray;
-    border-radius: 5px;
-    overflow: scroll;
-    margin-left: -1em;
-}
+/*.mainContainer{*/
+/*    background-image: url("../images/tron.jpeg");*/
+/*    !*background-size: 20em;*!*/
+/*    background-color: blanchedalmond;*/
+/*    background-position-x: 20em;*/
+/*    width: 60em;*/
+/*    height: 55em;*/
+/*    border: 2px solid darkgray;*/
+/*    border-radius: 5px;*/
+/*    overflow: scroll;*/
+/*    margin-left: -1em;*/
+/*}*/
 
 .movieContainer {
     width: 50em;
