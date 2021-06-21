@@ -12,13 +12,14 @@ const getMovies = () => {
                 console.log(` ${title} - rating: ${rating}`)
                 divCreate.innerHTML = `
                                          
-                                        <div class="movieList">
-                                         <div class="col-2 ">
-                                           <p class="col-lg-3 col-sm-12 movieClass"> ${title} <br> rating: ${rating} <br>
+                                        <div class="movieList ">
+                                         <div class="movieList">
+                                           <p class=" movieClass" id="poster"> ${title} <br> rating: ${rating} <br>
                                          <button onclick="Delete(this)" 
                                          data-rmv=${id} id='remove' class="rmvBtn px-1">Remove</button><button onclick="updateData(this)">Update</button></p>
                                     </div>
                                          </div>
+                                         <div class="col-6" id="poster"></div>
                                          `
                 htmlLoad.appendChild(divCreate)
                 divCreate.addEventListener("click", divCreate.remove)
@@ -46,7 +47,7 @@ const addMovie = () => {
                             id = "movieDel" class="rmvBtn">Remove</button> <button onclick="updateData(this)">Update</button></p>`
     htmlLoad.appendChild(createInput)
     createInput.addEventListener("click", createInput.remove)
-    // createInput.addEventListener("click", Delete)
+
 
     //OMDB Movie Data********************
 
@@ -60,7 +61,7 @@ const addMovie = () => {
                     let search = data.Search[i].Poster
                     let title = data.Search[i].Title
                     let year = data.Search[i].Year
-                    let showSearch = document.createElement("div")
+                    let showSearch = document.getElementById("poster")
                     showSearch.innerHTML = `<img src="${search}"><h2>${title} - ${year}</h2></img>`
                     htmlLoad.appendChild(showSearch)
                 }
