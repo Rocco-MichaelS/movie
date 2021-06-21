@@ -29,9 +29,6 @@ html, body{
 button {
     border-radius: 3px;
 }
-.form-control {
-    /*max-width: 20em;*/
-}
 .mainContainer{
     background-image: url("../images/tron.jpeg");
     /*background-size: 20em;*/
@@ -45,10 +42,15 @@ button {
     margin-left: -1em;
 }
 
+.form-control {
+    /*max-width: 20em;*/
+}
+
 .movieContainer {
     width: 50em;
     height: 55em;
     background-color: blanchedalmond;
+    overflow: auto;
 
 }
 .rmvBtn {
@@ -75,7 +77,7 @@ button {
 
     height: auto;
     border: 1px solid darkgray;
-    border-radius: 3px;
+    border-radius: 10px;
 
 }
 
@@ -83,9 +85,7 @@ button {
      color: antiquewhite;
      background-color: black;
  }
-.loader {
-    /*display: none;*/
-}
+
 .Add {
     font-family: 'Bangers';
     background-color: darkseagreen;
@@ -93,7 +93,8 @@ button {
 
 .movieList{
  display: flex;
-   flex-direction: row;
+   flex-direction: column;
+    justify-content: space-evenly;
     width: 20px;
 
 }
