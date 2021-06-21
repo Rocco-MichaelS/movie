@@ -47,7 +47,7 @@ const addMovie = () => {
                             id = "movieDel" class="rmvBtn">Remove</button> <button onclick="updateData(this)">Update</button></p>`
     htmlLoad.appendChild(createInput)
     createInput.addEventListener("click", createInput.remove)
-    // createInput.addEventListener("click", Delete)
+
 
     //OMDB Movie Data********************
 
