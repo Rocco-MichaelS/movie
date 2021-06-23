@@ -10,16 +10,16 @@ const getMovies = () => {
             movies.forEach(({title, rating, id}) => {
                 let divCreate = document.createElement("div")
                 console.log(` ${title} - rating: ${rating}`)
-                divCreate.innerHTML = `
+                divCreate.innerText = `
                                          
-                                        <div class="movieList ">
-                                         <div class="movieList">
+                                    
+                                         <div class="movieList w-25">
                                            <p class=" movieClass" id="poster"> ${title} <br> rating: ${rating} <br>
                                          <button onclick="Delete(this)" 
                                          data-rmv=${id} id='remove' class="rmvBtn px-1">Remove</button><button onclick="updateData(this)">Update</button></p>
-                                    </div>
-                                         </div>
-                                         <div class="col-6" id="poster"></div>
+                                    </>
+                                 
+                                         
                                          `
                 htmlLoad.appendChild(divCreate)
                 divCreate.addEventListener("click", divCreate.remove)
@@ -62,7 +62,7 @@ const addMovie = () => {
                     let title = data.Search[i].Title
                     let year = data.Search[i].Year
                     let showSearch = document.getElementById("poster")
-                    showSearch.innerHTML = `<img src="${search}"><h2>${title} - ${year}</h2></img>`
+                    showSearch.innerHTML = `<img src="${search}"><h2>${title} - ${year}</h2></img>` + getMovies()
                     htmlLoad.appendChild(showSearch)
                 }
 
