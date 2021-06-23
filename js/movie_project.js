@@ -57,7 +57,7 @@ const addMovie = () => {
 
         .then((data) => {
 
-                for (let i = 0; i < 1; i++) {
+                for (let i = 0; i < 5; i++) {
                     let search = data.Search[i].Poster
                     let title = data.Search[i].Title
                     let year = data.Search[i].Year
