@@ -1,5 +1,7 @@
 const htmlLoad = document.getElementById('movieList');
 const posterLoad = document.getElementById('poster');
+const selectedMovie = [];
+
 const apiURL = 'https://saber-tiny-open.glitch.me/movies'
 // Api request for Json movie objects/////////////
 
@@ -11,15 +13,15 @@ const getMovies = () => {
             movies.forEach(({title, rating, id}) => {
                 let divCreate = document.createElement("div")
                 console.log(` ${title} - rating: ${rating}`)
-                divCreate.innerHTML = `<div class="movieList w-25">
-                                           <p class=" movieClass" id="poster"> ${title} 
+                divCreate.innerHTML = `<div class="movieList w-50">
+                                           <p class=" movieClass" id="movieTitle"> ${title} 
                                            <br> rating: ${rating}
                                             <br>
-                                            </p>
                                             <button onclick="Delete(this)" 
                                             data-rmv=${id} id='remove' class="rmvBtn px-1">Remove</button><button onclick="updateData(this)">Update
+                                            </p>
                                             </button>
-                                    </div>`
+                                            </div>`
                 htmlLoad.appendChild(divCreate)
                 // divCreate.addEventListener("click", divCreate.remove)
                 // divCreate.addEventListener("click", Delete)
@@ -37,42 +39,21 @@ console.log(getMovies())
 //Add Movie Function***********
 
 const addMovie = () => {
+    const userInput = document.getElementById('searchMovieInput').value;
+    // const url = 'https://www.omdbapi.com/?apikey=' + '9065481d' + '&s=' + userInput + ''
     let stars = document.getElementById('movieRating').value;
-    let userInput = document.getElementById('addMovie').value;
-    
     console.log(userInput)
     let createInput = document.createElement("div")
-    createInput.innerHTML = `<p class="movieClass col-lg-6 col-sm-12 ">${userInput} <br> rating: ${stars} <br> 
+    createInput.innerHTML = `<p class="movieClass col-lg-2 col-sm-12">${userInput} <br> rating: ${stars} <br> 
                             <button onclick="Delete(this)" 
                             id = "movieDel" class="rmvBtn">Remove</button> <button onclick="updateData(this)">Update</button></p>`
     htmlLoad.appendChild(createInput)
     createInput.addEventListener("click", createInput.remove)
 
+    searchMovie();
 
-    //OMDB Movie Data********************
 
-    const url = 'https://www.omdbapi.com/?apikey=' + '9065481d' + '&s=' + userInput + ''
-    const omdbDATA = () => fetch(url)
-        .then(response => response.json())
 
-        .then((data) => {
-
-                for (let i = 0; i < 5; i++) {
-                    let search = data.Search[i].Poster
-                    let title = data.Search[i].Title
-                    let year = data.Search[i].Year
-                    let showSearch = document.getElementById("poster")
-                    showSearch.innerHTML = `<img src="${search}"><h2>${title} - ${year}</h2></img>` 
-                    //+ getMovies()
-                    posterLoad.appendChild(showSearch)
-                }
-
-                console.log(data.Search)
-            }
-        )
-        .catch(error => console.log(error))
-
-    console.log(omdbDATA())
 
 //*****ADD to Glitch JSON Objects***********
 
@@ -91,9 +72,63 @@ const addMovie = () => {
     fetch(apiURL, options)
         .then(response => console.log(response)) /* review was created successfully */
         .catch(error => console.error(error));
-
-
 }
+
+const showSearch = document.getElementById("poster")
+//OMDB Movie Data********************
+const searchMovie = () =>{
+    const userInput = document.getElementById('searchMovieInput').value;
+    const url = 'https://www.omdbapi.com/?apikey=' + '9065481d' + '&s=' + userInput + ''
+    const omdbDATA = () => fetch(url)
+    .then(response => response.json())
+    .then((data) => {
+         clearResults();
+            console.log('data', data);
+                for (let i = 0; i < 5; i++) {
+                    let search = data.Search[i].Poster
+                    let title = data.Search[i].Title
+                    let year = data.Search[i].Year
+                    showSearch.innerHTML += `<div class='searchResultItem'>
+                    <img src="${search}"><h2>${title} - ${year}</h2></img>
+                    </div>`
+                }
+                console.log(data.Search)
+            }
+        )
+        .catch(error => console.log(error))
+
+        omdbDATA();
+  
+}
+function clearResults() {
+    showSearch.innerHTML = ''; // Clear past results
+}
+
+function handleEnter(event) {
+    if (event.key === 'Enter') {
+        searchMovie();
+    }
+}
+
+    // Function to handle the click event on images
+ const handleImageClick = (event) => {
+        const clickedImage = event.target;
+        const imageUrl = clickedImage.src;
+
+        // Add the image URL to the array
+        selectedMovie.push(imageUrl)
+        console.log('selectedmovies',selectedMovie);
+
+        // Update the display of array content
+        displayArrayContent();
+    };
+
+const clickableImages = document.querySelectorAll('.searchResultItem');
+clickableImages.forEach(image => {
+    image.addEventListener('click', handleImageClick);
+});
+
+
 //delete from Api******************
 const Delete = (id, elem) => {
     let movieId = $(id).data('rmv')

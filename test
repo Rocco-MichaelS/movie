@@ -1,0 +1,32 @@
+const addMovie = () => {
+    let stars = document.getElementById('movieRating').value;
+    let userInput = document.getElementById('addMovie').value;
+
+    console.log(userInput)
+    let createInput = document.createElement("div")
+    createInput.innerHTML = `<p class="movieClass col-lg-2 col-sm-12">${userInput} <br> rating: ${stars} <br> 
+                            <button onclick="Delete(this)" 
+                            id = "movieDel" class="rmvBtn">Remove</button> <button onclick="updateData(this)">Update</button></p>`
+    htmlLoad.appendChild(createInput)
+    createInput.addEventListener("click", createInput.remove)
+
+
+    //OMDB Movie Data********************
+
+    const url = 'https://www.omdbapi.com/?apikey=' + '9065481d' + '&s=' + userInput + ''
+    const omdbDATA = () => fetch(url)
+        .then(response => response.json())
+        .then((data) => {
+                for (let i = 0; i < 5; i++) {
+                    let search = data.Search[i].Poster
+                    let title = data.Search[i].Title
+                    let year = data.Search[i].Year
+                    let showSearch = document.getElementById("poster")
+                    showSearch.innerHTML += `<img src="${search}"><h2>${title} - ${year}</h2></img>`
+                }
+                console.log(data.Search)
+            }
+        )
+        .catch(error => console.log(error))
+
+    console.log(omdbDATA())

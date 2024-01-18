@@ -34,7 +34,7 @@ button {
     /*background-size: 20em;*/
     background-color: blanchedalmond;
     background-position-x: 20em;
-    width: 60em;
+    width: 60e;
     height: 55em;
     border: 2px solid darkgray;
     border-radius: 5px;
@@ -47,7 +47,7 @@ button {
 }
 
 .movieContainer {
-    width: 50em;
+    width: 75em;
     height: 55em;
     background-color: blanchedalmond;
     overflow: auto;
@@ -96,5 +96,9 @@ button {
    flex-direction: column;
     justify-content: space-evenly;
     width: 20px;
+
+}
+.searchResultItem:hover{
+    opacity: .4;
 
 }

@@ -12,61 +12,54 @@
 </head>
 
 <body class="container">
-<nav class="navbar jumbotron  bg-primary d-flex justify-content-center">
+    <!-- NavBar -->
+<nav class="navbar jumbotron bg-primary d-flex justify-content-center">
     <h1 class="title navbar-brand col-sm-12">Movies To Watch Before You Die!</h1>
     <form class="form-inline">
     </form>
 </nav>
 
-<section onloadstart="myFunction()" class="movieContainer  mt-1 mb-1 ml-2">
+<section onloadstart="myFunction()" class="movieContainer container mt-1 mb-1 ml-2">
+                <div class="loader spinner-border text-success mt-3 ml-4" role="status">
+                    <h3 class ="loader"> </h3>
+                    <span class="sr-only position-fixed">Loading...</span>
+                </div>
+                
+                <!-- Search Bar Container -->
+               
+                    <section class="container addBar navbar mb-2 ">
+                        <input class="form-control col-lg-12 col-sm-12 mr-2 mt-2 bg-light text-dark" id="searchMovieInput" type="search" placeholder="Type Your Favorite Movie Here!" aria-label="Search" onkeydown="handleEnter(event)">
 
-<main class=" mt-3  " id="movieList">
-    <div class="row mx-0">
-        <div class="loader spinner-border text-success mt-3 ml-4" role="status">
-            <h3 class ="loader"> </h3>
-            <span class="sr-only position-fixed">Loading...</span>
-        </div>
+                        <button class="Add btn btn-outline-dark col-lg-3 col-sm-12   mb-2 mt-3" id="searchMovie" onclick="searchMovie()" type="button">Search</button>
+                        <button class="Add btn btn-outline-dark col-lg-2 col-sm-12   mb-2 mt-3" id="submitMovie" onclick="addMovie()" type="button">Add!</button>
+                        <select class="form-control btn btn-outline-dark col-lg-3 col-sm-12 mt-2 bg-light mr-0" name="rating" id="movieRating">
+                            <option value="" disabled selected>Rate!</option>
+                            <option value="star 1">&#9734</option>
+                            <option value="star 2">&#9734&#9734</option>
+                            <option value="star 3">&#9734&#9734&#9734</option>
+                            <option value="star 4">&#9734&#9734&#9734&#9734</option>
+                            <option value="star 5">&#9734&#9734&#9734&#9734&#9734</option>
+                        </select>
+                    </section>
 
-<section class="addBar navbar mb-2 ">
-    <input class="form-control col-lg-12 col-sm-12 mr-2 mt-2 bg-light text-dark" id="addMovie" type="search" placeholder="Type Your Favorite Movie Here!" aria-label="Search">
-        <select class="form-control btn btn-outline-dark col-lg-3 col-sm-12 mt-2 bg-light mr-2" name="rating" id="movieRating">
-            <option value="" disabled selected>Rate!</option>
-            <option value="star 1">&#9734</option>
-            <option value="star 2">&#9734&#9734</option>
-            <option value="star 3">&#9734&#9734&#9734</option>
-            <option value="star 4">&#9734&#9734&#9734&#9734</option>
-            <option value="star 5">&#9734&#9734&#9734&#9734&#9734</option>
-        </select>
-        <button class="Add btn btn-outline-dark col-lg-2 col-sm-12 mr-2  mb-2 mt-3" id="submitMovie" onclick="addMovie()" type="button">Add!</button>
+            <!-- Movie List Section -->
+            <main class="row">
+            <section class="col-4" id="movieList"></section>
+            
+            <!-- Movie Poster Section  -->
+            <section class="col-6">   
+                <div class="movieContainer
+                mt-1 mb-1 ml-2 row">
+                    <div class="container">
+                        <div class="poster" id="poster"></div>
+                    </div>
+                </div>
+            </section>
+        </ma>
+
 </section>
-    </div>
-    
-</main>
-    <div class="container">
-        <div class="poster" id="poster"></div>
-    </div>
-</section>
 
 
-<!--<article>-->
-<!--    <form>-->
-<!--        <div class="form-group">-->
-<!--            <label id="update">Updated Title:</label>-->
-<!--            <input type="search" class="form-control width-4" id="exampleInputEmail1" aria-describedby="emailHelp">-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <select class="form-control btn btn-outline-dark col-3 bg-primary mr-2" name="rating" id="updatedRating">-->
-<!--                <option value="" disabled selected>New Rating!</option>-->
-<!--                <option value="star 1">&#9734</option>-->
-<!--                <option value="star 2">&#9734&#9734</option>-->
-<!--                <option value="star 3">&#9734&#9734&#9734</option>-->
-<!--                <option value="star 4">&#9734&#9734&#9734&#9734</option>-->
-<!--                <option value="star 5">&#9734&#9734&#9734&#9734&#9734</option>-->
-<!--            </select>-->
-<!--        </div>-->
-<!--        <button type="submit" class="btn btn-primary">Submit</button>-->
-<!--    </form>-->
-<!--</article>-->
 
 
 
