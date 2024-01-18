@@ -1,4 +1,5 @@
 const htmlLoad = document.getElementById('movieList');
+const posterLoad = document.getElementById('poster');
 const apiURL = 'https://saber-tiny-open.glitch.me/movies'
 // Api request for Json movie objects/////////////
 
@@ -10,20 +11,18 @@ const getMovies = () => {
             movies.forEach(({title, rating, id}) => {
                 let divCreate = document.createElement("div")
                 console.log(` ${title} - rating: ${rating}`)
-                divCreate.innerText = `
-                                         
-                                    
-                                         <div class="movieList w-25">
-                                           <p class=" movieClass" id="poster"> ${title} <br> rating: ${rating} <br>
-                                         <button onclick="Delete(this)" 
-                                         data-rmv=${id} id='remove' class="rmvBtn px-1">Remove</button><button onclick="updateData(this)">Update</button></p>
-                                    </>
-                                 
-                                         
-                                         `
+                divCreate.innerHTML = `<div class="movieList w-25">
+                                           <p class=" movieClass" id="poster"> ${title} 
+                                           <br> rating: ${rating}
+                                            <br>
+                                            </p>
+                                            <button onclick="Delete(this)" 
+                                            data-rmv=${id} id='remove' class="rmvBtn px-1">Remove</button><button onclick="updateData(this)">Update
+                                            </button>
+                                    </div>`
                 htmlLoad.appendChild(divCreate)
-                divCreate.addEventListener("click", divCreate.remove)
-                divCreate.addEventListener("click", Delete)
+                // divCreate.addEventListener("click", divCreate.remove)
+                // divCreate.addEventListener("click", Delete)
             })
 
         })
@@ -40,6 +39,7 @@ console.log(getMovies())
 const addMovie = () => {
     let stars = document.getElementById('movieRating').value;
     let userInput = document.getElementById('addMovie').value;
+    
     console.log(userInput)
     let createInput = document.createElement("div")
     createInput.innerHTML = `<p class="movieClass col-lg-6 col-sm-12 ">${userInput} <br> rating: ${stars} <br> 
@@ -62,8 +62,9 @@ const addMovie = () => {
                     let title = data.Search[i].Title
                     let year = data.Search[i].Year
                     let showSearch = document.getElementById("poster")
-                    showSearch.innerHTML = `<img src="${search}"><h2>${title} - ${year}</h2></img>` + getMovies()
-                    htmlLoad.appendChild(showSearch)
+                    showSearch.innerHTML = `<img src="${search}"><h2>${title} - ${year}</h2></img>` 
+                    //+ getMovies()
+                    posterLoad.appendChild(showSearch)
                 }
 
                 console.log(data.Search)
@@ -94,7 +95,7 @@ const addMovie = () => {
 
 }
 //delete from Api******************
-const Delete = (id) => {
+const Delete = (id, elem) => {
     let movieId = $(id).data('rmv')
     fetch(`${apiURL}/${movieId}`, {
         method: 'DELETE',
@@ -104,6 +105,7 @@ const Delete = (id) => {
     })
         .then(response => response)
         .then(() => {
+           id.parentNode.remove();
             alert(`deleted movie!!`)
         })
         .catch(error => console.error('didnt work'));
