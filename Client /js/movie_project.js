@@ -2,47 +2,79 @@ const htmlLoad = document.getElementById('movieList');
 const posterLoad = document.getElementById('poster');
 const selectedMovie = [];
 
+
 const apiURL = 'https://saber-tiny-open.glitch.me/movies'
 const serverAPI = 'http://127.0.0.1:5000/movies'
 // Api request for Json movie objects/////////////
 
-
-// const getServerMovies = () => {
-//     return fetch(serverAPI)
-//         .then(response => response.json())
-//         .then(movies => {
-//           console.log(movies);
-//             })
-// }
-
-const getMovies = () => {
-    return fetch(apiURL)
+// {"title": "Movie 1", "genre": "Action", "year": 2020},
+// {"title": "Movie 2", "genre": "Comedy", "year": 2019},
+// {"title": "Movie 3", "genre": "Drama", "year": 2018}
+const getServerMovies = () => {
+    fetch(serverAPI)
         .then(response => response.json())
-        .then(movies => {
-            movies.forEach(({title, rating, id}) => {
-                let divCreate = document.createElement("div")
-                console.log(` ${title} - rating: ${rating}`)
-                divCreate.innerHTML = `<div class="movieList w-50">
-                                           <p class=" movieClass" id="movieTitle"> ${title} 
-                                           <br> rating: ${rating}
-                                            <br>
-                                            <button onclick="Delete(this)" 
-                                            data-rmv=${id} id='remove' class="rmvBtn px-1">Remove</button><button onclick="updateData(this)">Update
-                                            </p>
-                                            </button>
-                                            </div>`
-                htmlLoad.appendChild(divCreate)
-          
-            })
+        .then(data => {
+            // Extract movies from the response data
+            const movies = data.movies;
+            console.log(movies);
+            // Loop through the movies array
+            movies.forEach(movie => {
+                // Create a <div> element for each movie
+                let divCreate = document.createElement("div");
+                divCreate.classList.add("movieList", "w-50");
 
+                // Populate the <div> with movie information
+                divCreate.innerHTML = `
+                    <div class="movieList w-50">
+                        <p class="movieClass" id="movieTitle">${movie.title}</p>
+                        <p>Rating: ${movie.rating}</p>
+                        <p>Rating: ${movie.genre}</p>
+                        <p>Rating: ${movie.year}</p>
+                        <img src="${movie.imageUrl}" alt="${movie.title}">
+                        <button onclick="Delete(this)" data-rmv="${movie.title}" class="rmvBtn px-1">Remove</button>
+                        <button onclick="updateData(this)">Update</button>
+                    </div>`;
+                
+                // Append the created <div> to the HTML element with id "htmlLoad"
+                htmlLoad.appendChild(divCreate);
+            });
         })
-        .then(msg => {
-            $('.loader').hide();
+        .catch(error => {
+            console.error('Error fetching movies:', error);
         });
 }
 
+// Call the function to fetch and display movies
+getServerMovies();
 
-console.log(getMovies())
+// const getMovies = () => {
+//     return fetch(apiURL)
+//         .then(response => response.json())
+//         .then(movies => {
+//             //console.log('get movies',movies)
+//             movies.forEach(({title, rating, image, id}) => {
+//                 let divCreate = document.createElement("div")
+//                // console.log(` ${title} - rating: ${rating}`)
+//                 divCreate.innerHTML = `<div class="movieList w-50">
+//                                            <p class=" movieClass" id="movieTitle"> ${title} 
+//                                            <br> rating: ${rating}
+//                                             <br>
+//                                             <img src=${image}></img>
+//                                             <button onclick="Delete(this)" 
+//                                             data-rmv=${id} id='remove' class="rmvBtn px-1">Remove</button><button onclick="updateData(this)">Update
+//                                             </p>
+//                                             </button>
+//                                             </div>`
+//                 htmlLoad.appendChild(divCreate)
+//             })
+//         })
+//         .then(msg => {
+//             $('.loader').hide();
+//         });
+// }
+
+
+//console.log(getMovies())
 
 //Add Movie Function***********
 
@@ -68,7 +100,8 @@ const addMovie = () => {
     let addTitle = {
         id: '',
         title: userInput,
-        rating: stars
+        rating: stars,
+        image: selectedMovie
     };
     const options = {
         method: 'POST',
@@ -91,7 +124,7 @@ const searchMovie = () =>{
     .then(response => response.json())
     .then((data) => {
          clearResults();
-            console.log('data', data);
+           // console.log('data', data);
                 for (let i = 0; i < 5; i++) {
                     let search = data.Search[i].Poster
                     let title = data.Search[i].Title
@@ -100,7 +133,7 @@ const searchMovie = () =>{
                     <img src="${search}" class="searchResultItem"><h2>${title} - ${year}</h2></img>
                     </div>`
                 }
-                console.log(data.Search)
+               // console.log(data.Search)
             }
         )
         .catch(error => console.log(error))
@@ -123,12 +156,16 @@ console.log(movies);
 }
     // Function to handle the click event on images
  const handleImageClick = (event) => {
+       
         const clickedImage = event.target;
         const imageUrl = clickedImage.src;
 
         // Add the image URL to the array
-        selectedMovie.push(imageUrl)
-        console.log('selectedmovies',selectedMovie);
+        if(imageUrl){
+            selectedMovie.push(imageUrl)
+
+        }
+       // console.log('selectedmovies',selectedMovie);
 
         // Update the display of array content
         displayArrayContent(selectedMovie);
